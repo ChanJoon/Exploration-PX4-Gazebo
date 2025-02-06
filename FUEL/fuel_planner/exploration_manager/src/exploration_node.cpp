@@ -9,7 +9,7 @@ backward::SignalHandling sh;
 using namespace fast_planner;
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "exploration_node");
+  ros::init(argc, argv, "fuel_exploration_node");
   ros::NodeHandle nh("~");
 
   FastExplorationFSM expl_fsm;

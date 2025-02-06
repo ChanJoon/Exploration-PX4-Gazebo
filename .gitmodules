@@ -1,0 +1,3 @@
+[submodule "px4ctrl"]
+	path = px4ctrl
+	url = git@github.com:ChanJoon/px4ctrl.git

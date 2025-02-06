@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(exploration_manager)
+project(falcon_exploration_manager)
 
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++14")
@@ -42,12 +42,12 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
 )
 
-add_executable(exploration_node
+add_executable(falcon_exploration_node
   src/exploration_node.cpp 
   src/exploration_fsm.cpp
   src/exploration_manager.cpp
 )
-target_link_libraries(exploration_node 
+target_link_libraries(falcon_exploration_node 
   ${catkin_LIBRARIES}
   -ldw
   -lglog

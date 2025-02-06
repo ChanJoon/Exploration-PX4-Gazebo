@@ -40,7 +40,8 @@ voxel_mapping:
 
 transformer:
   world_frame: "world"
-  sensor_frame: "camera"
-  pose_topic_type: "transform" # "pose", "odometry", "transform" 
+  sensor_frame: "camera"  # FALCON SIM
+  # sensor_frame: "depth_camera_link" # PX4 SITL
+  pose_topic_type: "transform" # "pose(PX4 SITL)", "odometry", "transform(FALCON SIM)" 
   timestamp_tolerance: 0.001 # 1ms
   verbose: false

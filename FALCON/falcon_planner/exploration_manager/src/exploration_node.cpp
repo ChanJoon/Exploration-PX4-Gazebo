@@ -13,7 +13,7 @@ backward::SignalHandling sh;
 using namespace fast_planner;
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "exploration_node");
+  ros::init(argc, argv, "falcon_exploration_node");
   ros::NodeHandle nh("~");
 
   string glog_path;
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   // Check if use_sim_time is false
   bool use_sim_time;
   nh.param("/use_sim_time", use_sim_time, false);
-  CHECK(!use_sim_time) << "Please set use_sim_time to false";
+  // CHECK(!use_sim_time) << "Please set use_sim_time to false";
 
   ExplorationFSM fsm;
   fsm.init(nh);

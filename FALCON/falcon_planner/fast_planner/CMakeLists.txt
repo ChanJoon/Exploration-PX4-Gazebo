@@ -36,10 +36,10 @@ add_library(fast_planner
 )
 target_link_libraries(fast_planner ${catkin_LIBRARIES})
 
-add_executable(traj_server 
+add_executable(falcon_traj_server 
   src/traj_server.cpp
 )
-target_link_libraries(traj_server 
+target_link_libraries(falcon_traj_server 
   ${catkin_LIBRARIES} 
   -ldw 
   -lglog

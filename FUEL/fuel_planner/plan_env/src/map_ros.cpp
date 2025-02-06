@@ -125,9 +125,20 @@ void MapROS::depthPoseCallback(const sensor_msgs::ImageConstPtr& img,
   camera_pos_(2) = pose->pose.position.z;
   if (!map_->isInMap(camera_pos_))  // exceed mapped region
     return;
+  // PX4 SIM
+  Eigen::Quaterniond q_vision(1.0, 0.0, 0.0, 0.0);   // Vision pose quaternion (1, 0, 0, 0)
+  Eigen::Quaterniond q_sensor(0.5, -0.5, 0.5, -0.5); // Sensor pose quaternion (0.5, -0.5, 0.5, -0.5)
 
+  // Step 1: Compute the relative rotation (difference) between sensor_pose and vision_pose
+  Eigen::Quaterniond q_diff = q_sensor * q_vision.inverse();
+  camera_q_ = Eigen::Quaterniond(pose->pose.orientation.w,
+                                  pose->pose.orientation.x,
+                                  pose->pose.orientation.y,
+                                  pose->pose.orientation.z);
+  camera_q_ = camera_q_ * q_diff;
+  // FUEL SIM
   camera_q_ = Eigen::Quaterniond(pose->pose.orientation.w, pose->pose.orientation.x,
-                                 pose->pose.orientation.y, pose->pose.orientation.z);
+                                pose->pose.orientation.y, pose->pose.orientation.z);
   cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(img, img->encoding);
   if (img->encoding == sensor_msgs::image_encodings::TYPE_32FC1)
     (cv_ptr->image).convertTo(cv_ptr->image, CV_16UC1, k_depth_scaling_factor_);

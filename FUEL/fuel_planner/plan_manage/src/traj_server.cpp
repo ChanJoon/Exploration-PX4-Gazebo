@@ -434,7 +434,7 @@ void test() {
 }
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "traj_server");
+  ros::init(argc, argv, "fuel_traj_server");
   ros::NodeHandle node;
   ros::NodeHandle nh("~");
 

@@ -1,4 +1,4 @@
-PROBLEM_FILE = /home/eason-studio/workspace/falcon_publish_ws/src/FALCON/falcon_planner/exploration_utils/resource/coverage_path.tsp
+PROBLEM_FILE = /home/as06047/exploration_ws/catkin_make/HKUST-FUEL-FALCON-PX4-GAZEBO_ws/src/FALCON/falcon_planner/exploration_utils/resource/coverage_path.tsp
 GAIN23 = NO
-OUTPUT_TOUR_FILE =/home/eason-studio/workspace/falcon_publish_ws/src/FALCON/falcon_planner/exploration_utils/resource/coverage_path.txt
+OUTPUT_TOUR_FILE =/home/as06047/exploration_ws/catkin_make/HKUST-FUEL-FALCON-PX4-GAZEBO_ws/src/FALCON/falcon_planner/exploration_utils/resource/coverage_path.txt
 RUNS = 1

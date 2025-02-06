@@ -5,27 +5,30 @@
   <arg name="odometry_topic" value="/uav_simulator/odometry"/>
   <arg name="sensor_pose_topic" value="/uav_simulator/sensor_pose"/>
   <arg name="depth_image" value="/uav_simulator/depth_image"/>
+  <!-- <arg name="odometry_topic" value="/mavros/local_position/odom"/>
+  <arg name="sensor_pose_topic" value="/d435i/sensor_pose"/>
+  <arg name="depth_image" value="/d435i/depth/image_raw"/> -->
 
   <!-- Load parameter for modules -->
-  <rosparam command="load" file="$(find exploration_manager)/config/robot/uav_model_simulator.yaml"/>
-  <rosparam command="load" file="$(find exploration_manager)/config/map/$(arg map_name).yaml"/>
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/robot/uav_model_simulator.yaml"/>
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/map/$(arg map_name).yaml"/>
   <rosparam command="load" file="$(find voxel_mapping)/config/voxel_mapping.yaml"/>
   <rosparam command="load" file="$(find pathfinding)/config/astar.yaml"/>
   <rosparam command="load" file="$(find fast_planner)/config/fast_planner.yaml"/>
   <rosparam command="load" file="$(find exploration_preprocessing)/config/frontier_finder.yaml"/>
   <rosparam command="load" file="$(find exploration_preprocessing)/config/hgrid.yaml"/>
   <rosparam command="load" file="$(find exploration_utils)/config/perception_utils.yaml"/>
-  <rosparam command="load" file="$(find exploration_manager)/config/exploration_manager.yaml"/>
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/exploration_manager.yaml"/>
 
   <!-- Launch exploration node -->
-  <node pkg="exploration_manager" name="exploration_node" type="exploration_node" output="screen">
+  <node pkg="falcon_exploration_manager" name="exploration_node" type="falcon_exploration_node" output="screen">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
     <remap from ="/voxel_mapping/depth_image" to = "$(arg depth_image)"/>
     <remap from ="/transformer/sensor_pose_topic"   to = "$(arg sensor_pose_topic)"/>
   </node>
 
   <!-- Launch trajectory server -->
-  <node pkg="fast_planner" name="traj_server" type="traj_server" output="screen" />
+  <node pkg="fast_planner" name="falcon_traj_server" type="falcon_traj_server" output="screen" />
 
   <!-- Launch UAV Simulator if needed -->
   <group if="$(eval 'true' if arg('mode')=='uav_simulator' else 'false')">

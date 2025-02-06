@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>exploration_manager</name>
+  <name>falcon_exploration_manager</name>
   <version>0.0.0</version>
   <description>The exploration_manager package</description>
 

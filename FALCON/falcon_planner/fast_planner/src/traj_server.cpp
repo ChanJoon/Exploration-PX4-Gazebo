@@ -411,7 +411,7 @@ void cmdCallback(const ros::TimerEvent &e) {
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "traj_server");
+  ros::init(argc, argv, "falcon_traj_server");
   ros::NodeHandle node;
 
   ros::Subscriber bspline_sub = node.subscribe("planning/bspline", 1, bsplineCallback);

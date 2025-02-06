@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<sdf version='1.5'>
+  <model name='sensored_m100_the'>
+
+    <include>
+      <uri>model://m100_the</uri>
+    </include>
+
+    <include>
+      <uri>model://os0_64</uri>
+      <pose>0.0 0.0 0.1 0 0 0</pose>
+    </include>
+    <joint name="lidar_joint" type="fixed">
+      <child>os0_64::os_link</child>
+      <parent>m100_the::fuselage</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <include>
+      <uri>model://d435i_the</uri>
+      <pose>0.15 0.0 0.25 0 0 0</pose>
+    </include>
+    <joint name="cam_joint" type="fixed">
+      <child>d435i_the::camera_link</child>
+      <parent>m100_the::fuselage</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+  </model>
+</sdf>

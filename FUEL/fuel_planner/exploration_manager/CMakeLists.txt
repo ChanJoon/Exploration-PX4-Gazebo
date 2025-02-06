@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(exploration_manager)
+project(fuel_exploration_manager)
 
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++11")
@@ -41,12 +41,12 @@ include_directories(
 )
 
 
-add_executable(exploration_node
+add_executable(fuel_exploration_node
   src/exploration_node.cpp 
   src/fast_exploration_fsm.cpp
   src/fast_exploration_manager.cpp
   )
-target_link_libraries(exploration_node 
+target_link_libraries(fuel_exploration_node 
   ${catkin_LIBRARIES}
   )
 
@@ -66,4 +66,8 @@ target_link_libraries(write_tsp
 add_executable(load_obj test/load_obj.cpp)
 target_link_libraries(load_obj
   ${catkin_LIBRARIES} ${PCL_LIBRARIES}
+)
+
+catkin_install_python(PROGRAMS scripts/vis.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

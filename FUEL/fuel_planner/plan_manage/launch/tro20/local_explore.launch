@@ -59,7 +59,7 @@
   </include>
 
   <!-- trajectory server -->
-  <node pkg="plan_manage" name="traj_server" type="traj_server" output="screen">
+  <node pkg="plan_manage" name="fuel_traj_server" type="fuel_traj_server" output="screen">
     <remap from="/position_cmd" to="planning/pos_cmd"/>
 
     <remap from="/odom_world" to="$(arg odom_topic)"/>

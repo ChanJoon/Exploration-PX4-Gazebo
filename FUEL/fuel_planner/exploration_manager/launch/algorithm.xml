@@ -24,7 +24,7 @@
   <arg name="max_acc"/>
 
   <!-- main node -->
-  <node pkg="exploration_manager" name="exploration_node" type="exploration_node" output="screen">
+  <node pkg="fuel_exploration_manager" name="exploration_node" type="fuel_exploration_node" output="screen">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
     <remap from ="/map_ros/pose"   to = "$(arg sensor_pose_topic)"/> 
     <remap from ="/map_ros/depth" to = "$(arg depth_topic)"/>
