@@ -75,6 +75,7 @@ private:
   double k_depth_scaling_factor_;
   int skip_pixel_;
   string frame_id_;
+  bool px4_sitl_;
   // msg publication
   double esdf_slice_height_;
   double visualization_truncate_height_, visualization_truncate_low_;

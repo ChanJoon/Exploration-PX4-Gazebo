@@ -1,5 +1,5 @@
 exploration_manager:
-  auto_start: true
+  auto_start: false
   hybrid_search_radius: 15.0
   unknown_penalty_factor: 2.0
 

@@ -8,6 +8,7 @@ Transformer::Transformer(ros::NodeHandle &nh) : world_frame_("world"), sensor_fr
   nh.param("/transformer/pose_topic_type", pose_topic_type, std::string(""));
   nh.param("/transformer/timestamp_tolerance", timestamp_tolerance_duration, 1e-3);
   nh.param("/transformer/verbose", verbose_, false);
+  nh.param("/transformer/px4_sitl", px4_sitl_, false);
 
   if (pose_topic_type == "pose") {
     config_.pose_topic_type_ = Config::POSE_TYPE::POSE;
@@ -109,21 +110,22 @@ bool Transformer::lookupTransform(const ros::Time &timestamp, Transformation &tr
     if (verbose_)
       ROS_INFO("[Transformer] Interpolated T with timestamp: %f", timestamp.toSec());
 
-    // PX4 SITL
-    // // --- Add the additional rotation here ---
-    // // Step 1: Define the quaternions
-    // kindr::minimal::RotationQuaternion q_vision(1.0, 0.0, 0.0, 0.0);   // Vision pose quaternion (identity)
-    // kindr::minimal::RotationQuaternion q_sensor(0.5, -0.5, 0.5, -0.5); // Sensor pose quaternion
-    // kindr::minimal::RotationQuaternion q_diff = q_sensor * q_vision.inverted();
+    if (px4_sitl_) {
+      // --- Add the additional rotation here ---
+      // Step 1: Define the quaternions
+      kindr::minimal::RotationQuaternion q_vision(1.0, 0.0, 0.0, 0.0);   // Vision pose quaternion (identity)
+      kindr::minimal::RotationQuaternion q_sensor(0.5, -0.5, 0.5, -0.5); // Sensor pose quaternion
+      kindr::minimal::RotationQuaternion q_diff = q_sensor * q_vision.inverted();
 
-    // // Step 2: Retrieve current rotation from transform
-    // kindr::minimal::RotationQuaternion current_rotation = transform.getRotation();
+      // Step 2: Retrieve current rotation from transform
+      kindr::minimal::RotationQuaternion current_rotation = transform.getRotation();
 
-    // // Step 3: Apply the additional rotation
-    // kindr::minimal::RotationQuaternion updated_rotation = current_rotation * q_diff;
+      // Step 3: Apply the additional rotation
+      kindr::minimal::RotationQuaternion updated_rotation = current_rotation * q_diff;
 
-    // // Step 4: Update the transform with the new rotation
-    // transform.getRotation() = updated_rotation;
+      // Step 4: Update the transform with the new rotation
+      transform.getRotation() = updated_rotation;
+    }
   }
 
   return true;

@@ -60,6 +60,7 @@ private:
   AlignedDeque<TransformStampedMsgType> transform_queue_;
 
   bool verbose_;
+  bool px4_sitl_;
 };
 
 #endif // TRANSFORMER_H

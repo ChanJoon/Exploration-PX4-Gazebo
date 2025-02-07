@@ -23,6 +23,8 @@
   <arg name="max_vel"/>
   <arg name="max_acc"/>
 
+  <arg name="px4_sitl" default="false"/>
+
   <!-- main node -->
   <node pkg="fuel_exploration_manager" name="exploration_node" type="fuel_exploration_node" output="screen">
     <remap from ="/odom_world" to="$(arg odometry_topic)"/>
@@ -74,6 +76,7 @@
     <param name="map_ros/show_esdf_time" value="false"/>
     <param name="map_ros/show_all_map" value="true"/>
     <param name="map_ros/frame_id"      value="world"/>
+    <param name="map_ros/px4_sitl"     value="$(arg px4_sitl)"/>
 
     <!-- Fsm -->
     <param name="fsm/thresh_replan1" value="0.5" type="double"/>

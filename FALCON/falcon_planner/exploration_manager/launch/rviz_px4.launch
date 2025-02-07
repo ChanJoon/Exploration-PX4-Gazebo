@@ -1,0 +1,4 @@
+<launch>
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find falcon_exploration_manager)/config/rviz.rviz" />
+  <node pkg="fuel_exploration_manager" type="vis.py" name="visualization_node" output="screen" />
+</launch>

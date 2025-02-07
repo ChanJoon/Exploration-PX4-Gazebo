@@ -1,0 +1,42 @@
+<launch>
+  <arg name="mode" value="uav_simulator"/>
+  <arg name="map_name" default="complex_office"/>
+
+  <arg name="odometry_topic" value="/mavros/local_position/odom"/>
+  <arg name="sensor_pose_topic" value="/d435i/sensor_pose"/>
+  <arg name="depth_image" value="/d435i/depth/image_raw"/>
+
+  <!-- Load parameter for modules -->
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/robot/uav_model_simulator.yaml"/>
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/map/$(arg map_name).yaml"/>
+  <rosparam command="load" file="$(find voxel_mapping)/config/voxel_mapping_px4.yaml"/>
+  <rosparam command="load" file="$(find pathfinding)/config/astar.yaml"/>
+  <rosparam command="load" file="$(find fast_planner)/config/fast_planner.yaml"/>
+  <rosparam command="load" file="$(find exploration_preprocessing)/config/frontier_finder.yaml"/>
+  <rosparam command="load" file="$(find exploration_preprocessing)/config/hgrid.yaml"/>
+  <rosparam command="load" file="$(find exploration_utils)/config/perception_utils.yaml"/>
+  <rosparam command="load" file="$(find falcon_exploration_manager)/config/exploration_manager.yaml"/>
+
+  <!-- Launch exploration node -->
+  <node pkg="falcon_exploration_manager" name="exploration_node" type="falcon_exploration_node" output="screen">
+    <remap from ="/odom_world" to="$(arg odometry_topic)"/>
+    <remap from ="/voxel_mapping/depth_image" to = "$(arg depth_image)"/>
+    <remap from ="/transformer/sensor_pose_topic"   to = "$(arg sensor_pose_topic)"/>
+  </node>
+
+  <!-- Launch trajectory server -->
+  <node pkg="fast_planner" name="falcon_traj_server" type="falcon_traj_server" output="screen" />
+
+  <!-- Launch UAV Simulator if needed -->
+  <group if="$(eval 'true' if arg('mode')=='uav_simulator' else 'false')">
+    <!-- Map Render -->
+    <rosparam command="load" file="$(find pointcloud_render)/config/pointcloud_render.yaml"/>
+    <rosparam command="load" file="$(find mesh_render)/config/mesh_render.yaml"/>
+
+    <!-- Robot Visualier -->
+    <node pkg="odom_visualization" name="odom_visualization" type="odom_visualization" output="screen">
+      <remap from="~odometry" to="$(arg odometry_topic)"/>
+    </node>
+  </group>
+
+</launch>
