@@ -1,1 +1,4 @@
 FALCON/falcon_planner/exploration_manager/log/*
+.vscode/
+coverage_path.tsp
+coverage_path.txt
